@@ -48,7 +48,7 @@ const Explore = () => {
   return (
     <div>
       <Head>
-        <title>Explore | Tweeter</title>
+        <title>Explore | UniSocial</title>
       </Head>
       <Layout>
         <div className="mx-4 sm:mx-12 md:mx-24 lg:mx-48 mt-5">

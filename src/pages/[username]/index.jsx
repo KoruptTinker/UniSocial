@@ -22,7 +22,7 @@ const UserName = ({ fetchedUser, tweets }) => {
       <Head>
         <title>
           {userExits
-            ? `${fetchedUser.name} (@${fetchedUser.username}) | Tweeter`
+            ? `${fetchedUser.name} (@${fetchedUser.username}) | UniSocial`
             : `USER NOT FOUND`}
         </title>
       </Head>

@@ -83,7 +83,7 @@ const Home = () => {
   return (
     <div>
       <Head>
-        <title>Home | Tweeter</title>
+        <title>Home | UniSocial</title>
       </Head>
 
       <Layout>
