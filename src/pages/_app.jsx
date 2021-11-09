@@ -37,7 +37,7 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <>
-      <title>Tweeter</title>
+      <title>UniSocial</title>
       <UserContext.Provider value={{ user, setUser }}>
         <HomeTweetsContext.Provider
           value={{ homeTweetsContext, setHomeTweetsContext }}>

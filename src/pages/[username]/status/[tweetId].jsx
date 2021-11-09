@@ -16,7 +16,7 @@ const Tweet = ({ tweet }) => {
     <div>
       <Head>
         <title>
-          {tweet.author.name} on Tweeter "{tweet.text}"
+          {tweet.author.name} on UniSocial "{tweet.text}"
         </title>
       </Head>
       <Layout>
