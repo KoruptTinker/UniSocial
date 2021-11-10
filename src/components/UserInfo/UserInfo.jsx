@@ -6,11 +6,14 @@ import { useFollowings } from "../../hooks/useFollowings";
 import Avatar from "../Avatar/Avatar";
 import FollowButton from "../FollowButton/FollowButton";
 import Modal from "../Modal/Modal";
+// import ProfileUpdate from '../../services/ProfileUpdate';
+import EditProfile from "../EditProfile/EditProfile";
 
 const UserInfo = ({ fetchedUser }) => {
   const { user } = useContext(UserContext);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalLoading, setIsModalLoading] = useState(true);
+  const [isProfileUpdate, setIsProfileUpdate] = useState(false);
 
   const { followers, getFollowers } = useFollowers(fetchedUser.uid);
   const { followings, getFollowings } = useFollowings(fetchedUser.uid);
@@ -51,7 +54,8 @@ const UserInfo = ({ fetchedUser }) => {
           {user && fetchedUser.username === user.username ? (
             <button
               className="lg:mr-0 lg:ml-auto bg-primary text-white px-2 py-4  lg:px-8 lg:py-4 rounded-md"
-              type="submit">
+              type="submit" onClick={async () => setIsProfileUpdate(true)}>
+
               <span className="mx-2">
                 <PersonAddIcon />
               </span>
@@ -75,7 +79,7 @@ const UserInfo = ({ fetchedUser }) => {
           )}
         </div>
       </div>
-      {isModalOpen && (
+      {isModalOpen && !isProfileUpdate ? (
         <div
           className="fixed w-4/5 h-full"
           style={{
@@ -89,7 +93,12 @@ const UserInfo = ({ fetchedUser }) => {
             loading={isModalLoading}
           />
         </div>
-      )}
+      ) : <> </>}
+      {isProfileUpdate && !isModalOpen ?
+        <EditProfile
+          user={fetchedUser}
+          close={() => setIsProfileUpdate(false)}
+        /> : <></>}
     </div>
   );
 };
