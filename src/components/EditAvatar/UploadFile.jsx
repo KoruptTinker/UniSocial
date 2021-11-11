@@ -8,6 +8,7 @@ import { handleProfileUpdate, updateProfilePicture } from "../../services/Profil
 const UploadFile = () => {
   const [file, setFile] = useState(null);
   const [fileLink, setFileLink] = useState("");
+  const [checkUpload, setCheckUpload] = useState(false);
 
   const fileInputRef = React.createRef();
 
@@ -16,6 +17,10 @@ const UploadFile = () => {
     const task = await storageRef.put(file);
     const link = await storageRef.getDownloadURL("profile_pictures/" + file.name);
     updateProfilePicture(link);
+  };
+  const handleFileChange = (e) => {
+    setFile(e.target.files[0]);
+    setCheckUpload(true);
   };
 
   return (
@@ -37,21 +42,21 @@ const UploadFile = () => {
               </div>
               <input type="file" class="opacity-0"
                 hidden
-                onChange={(e) => setFile(e.target.files[0])}
+                onChange={(e) => handleFileChange(e)}
                 ref={fileInputRef}
               />
-              <span className="hover:bg-gray-200 p-2 cursor-pointer">
+              {/* <span className="hover:bg-gray-200 p-2 cursor-pointer">
                 <PhotoIcon
                   onClick={() => fileInputRef.current.click()}
                   style={{ color: "#3182ce" }}
                 />
-              </span>
+              </span> */}
               {file && file.name}
             </label>
           </div>
         </div>
         <div class="flex justify-center p-2">
-          <button class="w-full px-4 py-2 text-white bg-blue-500 rounded shadow-xl" type="submit" onClick={() => uploadImage()}>Upload</button>
+          <button class="w-full px-4 py-2 text-white bg-blue-500 rounded shadow-xl" type="submit" disabled={!checkUpload} onClick={() => uploadImage()}>Upload</button>
         </div>
       </div>
     </div>

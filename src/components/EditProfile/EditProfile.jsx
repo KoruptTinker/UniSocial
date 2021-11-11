@@ -15,7 +15,7 @@ const EditProfile = ({ user, close }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     setIsLoading(true);
     const formData = new FormData();
     formData.append("name", name);
@@ -23,10 +23,6 @@ const EditProfile = ({ user, close }) => {
     formData.append("bio", bio);
     formData.append("avatar", avatarFile);
     const response = await handleProfileUpdate(formData);
-    // if (response.status === 200) {
-    //   //setUser(response.data);
-    //   setIsLoading(false);
-    // }
   };
 
   const handleAvatarChange = (e) => {
