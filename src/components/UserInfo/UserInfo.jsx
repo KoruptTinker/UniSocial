@@ -74,7 +74,7 @@ const UserInfo = ({ fetchedUser }) => {
             </p>
           ) : (
             <p className="font-noto text-lg my-2 text-secondary">
-              404 Bio Not Found
+              Hey! I am on UniSocial!
             </p>
           )}
         </div>

@@ -49,7 +49,7 @@ const Modal = ({ users, close, loading }) => {
             </div>
             <div>
               <p className="font-noto font-medium text-gray-600">
-                {localUser.bio ? localUser.bio : "404 Bio Not Found"}
+                {localUser.bio ? localUser.bio : "Hey! I am on UniSocial!"}
               </p>
             </div>
           </div>
