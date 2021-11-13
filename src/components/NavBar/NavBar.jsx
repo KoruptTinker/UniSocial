@@ -17,7 +17,7 @@ const NavBar = () => {
         <Link href="/home">
           <img
             className="cursor-pointer ml-4"
-            src="/images/logos/tweeter.svg"
+            src="/images/logos/tweeter.png"
             alt="logo"
           />
         </Link>
@@ -53,7 +53,7 @@ const NavBar = () => {
               </li>
             </Link>
           )}
-        </div>
+        </div> 
 
         <div className="bg-white w-full lg:hidden flex justify-between items-center fixed bottom-0 h-16 px-4">
           <div>

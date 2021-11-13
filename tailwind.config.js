@@ -10,8 +10,7 @@ module.exports = {
         secondary: "#828282",
       },
       backgroundImage: (theme) => ({
-        banner: "url('/images/banner.jpg')",
-        logo:"url('/images/logos/tweeter-small.svg')"
+        banner: "url('/images/banner.jpg')"
       }),
     },
   },

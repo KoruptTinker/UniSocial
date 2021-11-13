@@ -14,7 +14,7 @@ const Home = () => {
         <div className="lg:w-2/4 bg-blue-800 py-6">
           <div className="mx-6">
             <div className="my-4">
-              <img src="/images/logos/tweeter-light.svg" alt="logo" />
+              <img src="/images/logos/tweeter-light.png" alt="logo" />
             </div>
             <div className="m-auto">
               <AuthForm type="signIn" />
