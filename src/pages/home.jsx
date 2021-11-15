@@ -12,6 +12,7 @@ import firebase from "../firebase/init";
 import Layout from "../layouts";
 import { fetchUser } from "../services/FetchData";
 
+
 const Home = () => {
   const { user } = useContext(UserContext);
   const [homeTweets, setHomeTweets] = useState([]);
@@ -104,7 +105,7 @@ const Home = () => {
               ) : (
                 homeTweets.map((tweet) => (
                   <span key={tweet.id}>
-                    <Link href={`${tweet.author.username}/status/${tweet.id}`}>
+                    <Link href={`${tweet.author.uid}/status/${tweet.id}`}>
                       <div className="mb-5">
                         <Post tweet={tweet} />
                       </div>
@@ -118,7 +119,7 @@ const Home = () => {
                 <Trends />
               </div>
               <div className="mb-5">
-                {user && <Suggestions userID= {user.uid} />}
+                {user && <Suggestions userID={user.uid} />}
               </div>
             </div>
           </div>
