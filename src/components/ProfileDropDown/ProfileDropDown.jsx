@@ -66,11 +66,10 @@ const ProfileDropDown = ({ user }) => {
                 <hr />
                 <button
                   type="submit"
-                  className={`block w-full text-left px-4 py-2 text-sm hover:bg-gray-100 focus:outline-none focus:bg-gray-100 ${
-                    deletingAccount
+                  className={`block w-full text-left px-4 py-2 text-sm hover:bg-gray-100 focus:outline-none focus:bg-gray-100 ${deletingAccount
                       ? "text-red-300 cursor-not-allowed"
                       : "text-red-700"
-                  } `}
+                    } `}
                   role="menuitem"
                   onClick={async (e) => {
                     if (!deletingAccount) {
@@ -79,6 +78,7 @@ const ProfileDropDown = ({ user }) => {
                         `Are you sure you want to delete your account?\nThis would delete your tweets,likes,saves`
                       );
                       if (answer) {
+                        e.preventDefault();
                         setDeletingAccount(true);
                         await deleteAccount(user.uid);
                       }
