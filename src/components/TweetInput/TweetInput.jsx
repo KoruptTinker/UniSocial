@@ -12,6 +12,7 @@ const TweetInput = () => {
   const [imgLink, setImgLink] = useState(null);
   const [file, setFile] = useState(null);
   const [tweeting, setTweeting] = useState(false);
+  const [isEnabled, setIsEnabled] = useState(true);
 
   const fileInputRef = React.createRef();
 
@@ -29,7 +30,6 @@ const TweetInput = () => {
           <div className="w-20 h-20 rounded-lg overflow-hidden">
             {user && <Avatar src={user.profilePicture} />}
           </div>
-
           <div className="w-full mx-5">
             <div className="flex flex-col">
               <form
@@ -55,7 +55,10 @@ const TweetInput = () => {
                   placeholder="What's Happening?"
                   type="text"
                   value={tweet}
-                  onChange={(e) => setTweet(e.target.value)}
+                  onChange={(e) => {
+                    setTweet(e.target.value);
+                    setIsEnabled(tweet.length <= 280 ? true : false);
+                  }}
                   required></textarea>
                 <div className="flex items-center mt-3">
                   <div className="mx-2">
@@ -71,15 +74,24 @@ const TweetInput = () => {
                         style={{ color: "#3182ce" }}
                       />
                     </span>
-                      {file && file.name}
+                    {file && file.name}
                   </div>
                   <div className="mr-0 ml-auto">
+                    <CircularProgress
+                      className="w-5 h-5"
+                      variant="determinate"
+                      value={isEnabled ? (tweet.length / 280) * 100 : 100}
+                      color={tweet.length < 270 ? "primary" : "secondary"}
+                    />
+                  </div>
+                  <div className="mr-0 ml-5">
                     <button
-                      className={`bottom-0 relative text-white px-8 py-4 rounded-md ${
-                        tweeting
-                          ? "bg-blue-300 cursor-not-allowed"
-                          : "bg-primary"
-                      }`}
+                      disabled={!isEnabled}
+                      className={`bottom-0 relative text-white px-8 py-4 rounded-md ${isEnabled ? tweeting
+                        ? "bg-blue-300 cursor-not-allowed"
+                        : "bg-primary"
+                        : "bg-gray-400 cursor-not-allowed"
+                        }`}
                       type="submit">
                       {tweeting ? "Tweeting...." : "Tweet"}
                       {tweeting && (
@@ -90,7 +102,6 @@ const TweetInput = () => {
                             left: "50%",
                             transform: " translate(-50%, -50%)",
                           }}>
-                          <CircularProgress />
                         </span>
                       )}
                     </button>
