@@ -27,8 +27,11 @@ const updateProfilePicture = async (
     console.log(updated_profilePicture);
     const user = await firebase.auth().currentUser;
     if (updated_profilePicture) {
-        const temp = await firebase.firestore().collection("users").doc(user.uid).update({
+        const temp = await firebase.firestore().collection("users").doc(user.uid).set({
             profilePicture: updated_profilePicture,
+        },
+        {
+          merge: true
         });
         return { success: true, data: temp };
     }

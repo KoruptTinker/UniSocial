@@ -57,7 +57,7 @@ const TweetInput = () => {
                   value={tweet}
                   onChange={(e) => {
                     setTweet(e.target.value);
-                    setIsEnabled(tweet.length <= 280 ? true : false);
+                    setIsEnabled(tweet.length < 280);
                   }}
                   required></textarea>
                 <div className="flex items-center mt-3">
@@ -93,7 +93,7 @@ const TweetInput = () => {
                         : "bg-gray-400 cursor-not-allowed"
                         }`}
                       type="submit">
-                      {tweeting ? "Tweeting...." : "Tweet"}
+                      {tweeting ? "Tweeting...." : tweet.length}
                       {tweeting && (
                         <span
                           style={{
