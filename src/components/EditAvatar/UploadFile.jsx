@@ -31,8 +31,8 @@ const UploadFile = () => {
 
   return (
     <div class="flex justify-center w-full">
-      <div class="w-full rounded-lg shadow-xl bg-gray-50">
-        <div class="m-4">
+      <div class="rounded-lg bg-gray-50 w-full">
+        <div class="w-full">
           <div class="flex justify-center">
             <label class="inline-block mb-4 text-gray-500">File Upload</label>
           </div>

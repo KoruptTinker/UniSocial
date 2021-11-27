@@ -10,7 +10,7 @@ const handleProfileUpdate = async (
         const temp = await firebase.firestore().collection("users").doc(user.uid).update({
             bio: updated_biography,
             name: updated_name,
-            accountHandle: updated_accountHandle
+            username: updated_accountHandle
         });
         return { success: true, data: temp };
     }

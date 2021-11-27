@@ -5,16 +5,16 @@ import UserContext from "../../context/UserContext";
 import Avatar from "../Avatar/Avatar";
 import FollowButton from "../FollowButton/FollowButton";
 
-const Modal = ({ users, close, loading }) => {
+const Modal = ({ users, close, loading , isFollower }) => {
   const { user } = useContext(UserContext);
 
   return (
-    <div className="bg-white rounded-lg p-4">
+    <div className="bg-white rounded-lg p-4 shadow-2xl">
       <div className="flex flex-row py-2">
         <p className="font-poppins font-semibold inline">
-          {user.name} is following
+          {isFollower ? `${user.name} is followed by` : `${user.name} follows`}
         </p>
-        <div className="mr-0 ml-auto ">
+        <div className="mr-0 ml-auto cursor-pointer">
           <p className="text-xl" onClick={close}>
             X
           </p>
@@ -28,7 +28,8 @@ const Modal = ({ users, close, loading }) => {
       <hr />
       {users.map((localUser) => {
         return (
-          <div className="py-4 ">
+          localUser.uid !== user.uid ? 
+          <div className="py-4 border-solid border-2 border-gray-400 px-4 rounded-lg">
             <div className="flex flex-row items-center">
               <div className="w-10 h-10 overflow-hidden rounded-lg mr-4">
                 <Avatar src={localUser.profilePicture} />
@@ -39,7 +40,6 @@ const Modal = ({ users, close, loading }) => {
                     {localUser.name}
                   </p>
                 </Link>
-                <p className="font-noto text-gray-600 py-2">120k Followers</p>
               </div>
               <div className="ml-auto mr-0 lg:mr-0 lg:ml-auto">
                 <FollowButton userID={localUser.uid} />
@@ -50,7 +50,8 @@ const Modal = ({ users, close, loading }) => {
                 {localUser.bio ? localUser.bio : "Hey! I am on UniSocial!"}
               </p>
             </div>
-          </div>
+            <hr className="mt-8"/>
+          </div> : null
         );
       })}
     </div>
