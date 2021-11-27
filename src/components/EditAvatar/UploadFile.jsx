@@ -10,6 +10,7 @@ const UploadFile = () => {
   const [file, setFile] = useState(null);
   const [fileLink, setFileLink] = useState(null);
   const [isUploading, setIsUploading] = useState(false);
+  const [checkUpload, setCheckUpload] = useState(false);
   const fileInputRef = React.createRef();
 
   const uploadImage = async () => {
@@ -23,6 +24,7 @@ const UploadFile = () => {
 
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
+    setCheckUpload(true);
   };
 
   useEffect(() => {
@@ -58,7 +60,7 @@ const UploadFile = () => {
           </div>
         </div>
         <div class="flex justify-center p-2">
-          <button disabled={isUploading} class={`w-full px-4 py-2 text-white rounded shadow-xl ${isUploading ? "bg-gray-400 cursor-not-allowed" : "bg-blue-500"}`} type="submit" onClick={async () => await uploadImage()}>{isUploading ? "Uploading" : "Upload"}</button>
+          <button disabled={isUploading || !checkUpload} class={`w-full px-4 py-2 text-white rounded shadow-xl ${(isUploading || !checkUpload) ? "bg-gray-400 cursor-not-allowed" : "bg-blue-500"}`} type="submit" onClick={async () => await uploadImage()}>{isUploading ? "Uploading" : "Upload"}</button>
         </div>
       </div>
     </div>
