@@ -47,7 +47,7 @@ const Suggestions = ({ type, userID }) => {
             <div className="flex flex-col">
               <p className="font-poppins font-medium">{user.name}</p>
               <p className="font-noto font-medium text-sm text-gray-600">
-                {user.followersCount} Followers
+                {user.followersCount-1} followers
               </p>
             </div>
             <div className="mr-0 ml-auto">

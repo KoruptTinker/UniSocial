@@ -3,16 +3,14 @@ import firebase from "../firebase/init";
 const handleProfileUpdate = async (
     updated_biography,
     updated_name,
-    updated_profilePicture,
     updated_accountHandle
 ) => {
     const user = await firebase.auth().currentUser;
-    if (updated_biography && updated_name && updated_accountHandle && updated_profilePicture) {
+    if (updated_biography && updated_name && updated_accountHandle) {
         const temp = await firebase.firestore().collection("users").doc(user.uid).update({
             bio: updated_biography,
             name: updated_name,
-            profilePicture: updated_profilePicture,
-            accountHandle: updated_accountHandle
+            username: updated_accountHandle
         });
         return { success: true, data: temp };
     }
@@ -24,14 +22,10 @@ const handleProfileUpdate = async (
 const updateProfilePicture = async (
     updated_profilePicture,
 ) => {
-    console.log(updated_profilePicture);
     const user = await firebase.auth().currentUser;
     if (updated_profilePicture) {
-        const temp = await firebase.firestore().collection("users").doc(user.uid).set({
+        const temp = await firebase.firestore().collection("users").doc(user.uid).update({
             profilePicture: updated_profilePicture,
-        },
-        {
-          merge: true
         });
         return { success: true, data: temp };
     }

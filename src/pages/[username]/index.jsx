@@ -26,7 +26,6 @@ const UserName = ({ fetchedUser, tweets }) => {
             : `USER NOT FOUND`}
         </title>
       </Head>
-
       <Layout>
         {userExits ? (
           <>

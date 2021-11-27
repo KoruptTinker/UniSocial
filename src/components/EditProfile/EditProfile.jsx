@@ -1,46 +1,35 @@
 import { useContext, useState, useEffect } from "react";
+import Link from "next/link";
 import UserContext from "../../context/UserContext";
 import Avatar from "../Avatar/Avatar";
 import { handleProfileUpdate } from '../../services/ProfileUpdate';
 import EditAvatar from "../EditAvatar/EditAvatar";
 
 const EditProfile = ({ user, close }) => {
-  // const { user, setUser } = useContext(UserContext);
   const [name, setName] = useState(user.name);
   const [username, setUsername] = useState(user.username);
   const [bio, setBio] = useState(user.bio);
   const [avatar, setAvatar] = useState(user.profilePicture);
-  const [avatarFile, setAvatarFile] = useState(null);
-  const [avatarUrl, setAvatarUrl] = useState(user.avatarUrl);
-  const [isLoading, setIsLoading] = useState(false);
-
-  const handleSubmit = async (e) => {
-    // e.preventDefault();
-    setIsLoading(true);
-    const formData = new FormData();
-    formData.append("name", name);
-    formData.append("username", username);
-    formData.append("bio", bio);
-    formData.append("avatar", avatarFile);
-    const response = await handleProfileUpdate(formData);
-  };
-
-  const handleAvatarChange = (e) => {
-    setAvatarFile(e.target.files[0]);
-    setAvatarUrl(URL.createObjectURL(e.target.files[0]));
-  };
-
+  const [redirect, setRedirect] = useState(false);
+  const[isUpdating, setIsUpdating] = useState(false);
 
   return (
-    <div className="edit-profile">
-      <div className="edit-profile__avatar" class="relative inline-block">
+    <div className="w-full bg-white rounded-lg p-4 shadow-2xl">
+      <Link href={`/${redirect ? username : user.username}`}>
+        <div className="mr-0 ml-auto ">
+          <p className="text-xl text-right cursor-pointer" onClick={close}>
+            X
+          </p>
+        </div>
+      </Link>
+      <div className="w-full flex flex-row pb-4">
         <EditAvatar src={avatar} />
       </div>
-      <form className="edit-profile__form" onSubmit={handleSubmit}>
-        <div className="edit-profile__form-group bg-gray-200 placeholder-gray-600  rounded-lg h-12 w-full font-noto text-sm font-medium"
-          type="text">
+      <form>
+        <div className="flex flex-col rounded-lg h-12 w-full font-noto text-lg font-medium">
           <label htmlFor="name">Name</label>
           <input
+            className="w-full h-12 rounded-lg p-2 border-2 border-gray-400"
             type="text"
             id="name"
             name="name"
@@ -48,10 +37,10 @@ const EditProfile = ({ user, close }) => {
             onChange={(e) => setName(e.target.value)}
           />
         </div>
-        <div className="edit-profile__form-group bg-gray-200 placeholder-gray-600  rounded-lg h-12 w-full font-noto text-sm font-medium"
-          type="text">
+        <div className="flex flex-col rounded-lg h-12 w-full font-noto text-lg font-medium mt-6">
           <label htmlFor="username">Username</label>
           <input
+            className="w-full h-12 rounded-lg p-2 border-2 border-gray-400"
             type="text"
             id="username"
             name="username"
@@ -59,10 +48,10 @@ const EditProfile = ({ user, close }) => {
             onChange={(e) => setUsername(e.target.value)}
           />
         </div>
-        <div className="edit-profile__form-group bg-gray-200 placeholder-gray-600  rounded-lg h-12 w-full font-noto text-sm font-medium"
-          type="text">
+        <div className="flex flex-col rounded-lg h-12 w-full font-noto text-lg font-medium mt-6">
           <label htmlFor="bio">Bio</label>
           <input
+            className="w-full h-12 rounded-lg p-2 border-2 border-gray-400"
             type="text"
             id="bio"
             name="bio"
@@ -70,15 +59,17 @@ const EditProfile = ({ user, close }) => {
             onChange={(e) => setBio(e.target.value)}
           />
         </div>
-        <div className="mr-0 ml-auto ">
-          <p className="text-xl" onClick={close}>
-            X
-          </p>
-        </div>
-        <div className="edit-profile__form-group">
-          <button className="edit-profile" onClick={() => handleProfileUpdate(bio, name, avatar, username)}>
+        <div className="mt-4">
+          <button className={`h-full w-full px-4 mt-4 py-2 text-white rounded ${isUpdating ? "bg-gray-400 cursor-not-allowed": "bg-blue-500"}`} onClick={async (e) => {
+            e.preventDefault();
+            setIsUpdating(true);
+            const response = await handleProfileUpdate(bio, name, username);
+            if(response.success){
+              setIsUpdating(false);
+              setRedirect(true);
+            }
+          }}>
             Save
-            {/* {isLoading ? "Loading..." : "Save"} */}
           </button>
         </div>
       </form>

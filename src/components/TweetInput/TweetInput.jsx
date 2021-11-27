@@ -93,7 +93,7 @@ const TweetInput = () => {
                         : "bg-gray-400 cursor-not-allowed"
                         }`}
                       type="submit">
-                      {tweeting ? "Tweeting...." : tweet.length}
+                      {tweeting ? "Tweeting...." : "Tweet"}
                       {tweeting && (
                         <span
                           style={{
