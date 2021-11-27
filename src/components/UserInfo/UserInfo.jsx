@@ -1,12 +1,11 @@
 import PersonAddIcon from "@material-ui/icons/PersonAdd";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import UserContext from "../../context/UserContext";
 import { useFollowers } from "../../hooks/useFollowers";
 import { useFollowings } from "../../hooks/useFollowings";
 import Avatar from "../Avatar/Avatar";
 import FollowButton from "../FollowButton/FollowButton";
 import Modal from "../Modal/Modal";
-// import ProfileUpdate from '../../services/ProfileUpdate';
 import EditProfile from "../EditProfile/EditProfile";
 
 const UserInfo = ({ fetchedUser }) => {
@@ -53,9 +52,9 @@ const UserInfo = ({ fetchedUser }) => {
           </span>
           {user && fetchedUser.username === user.username ? (
             <button
-              className="lg:mr-0 lg:ml-auto bg-primary text-white px-2 py-4  lg:px-8 lg:py-4 rounded-md"
+              disabled={isProfileUpdate}
+              className={`lg:mr-0 lg:ml-auto text-white px-2 py-4 lg:px-8 lg:py-4 rounded-md ${isProfileUpdate ? "cursor-not-allowed bg-gray-400" : "bg-primary"}`}
               type="submit" onClick={async () => setIsProfileUpdate(true)}>
-
               <span className="mx-2">
                 <PersonAddIcon />
               </span>
@@ -95,10 +94,21 @@ const UserInfo = ({ fetchedUser }) => {
         </div>
       ) : <> </>}
       {isProfileUpdate && !isModalOpen ?
-        <EditProfile
-          user={fetchedUser}
-          close={() => setIsProfileUpdate(false)}
-        /> : <></>}
+        <div
+          className="fixed w-2/5 h-full"
+          style={{
+            left: "50%",
+            top: "0",
+            transform: "translate(-50%, 20%)",
+          }}>
+          <EditProfile
+            user={fetchedUser}
+            close={() => {
+              setIsProfileUpdate(false)
+              }
+            }
+          />
+        </div> : <></>}
     </div>
   );
 };

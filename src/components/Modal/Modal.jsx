@@ -7,8 +7,6 @@ import FollowButton from "../FollowButton/FollowButton";
 
 const Modal = ({ users, close, loading }) => {
   const { user } = useContext(UserContext);
-  const [isFollowing, setIsFollowing] = useState(false);
-  const [followingDocID, setFollowingDocID] = useState("");
 
   return (
     <div className="bg-white rounded-lg p-4">
