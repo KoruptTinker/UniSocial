@@ -14,7 +14,7 @@ const removeDuplicates = (topics) => {
 
 const getTopics = async (tweet) => {
   const topics = tweet.match(/#[a-z]+/gi);
-  const uniqueTopics = removeDuplicates(topics);
+  const uniqueTopics = removeDuplicates(topics || []);
   for(const topic of uniqueTopics){
     const docRef = await firebase.firestore().collection('topics').doc(topic).get();
     await firebase.firestore().collection('topics').doc(topic).set({
