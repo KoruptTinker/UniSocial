@@ -11,6 +11,7 @@ const EditProfile = ({ user, close }) => {
   const [bio, setBio] = useState(user.bio);
   const [avatar, setAvatar] = useState(user.profilePicture);
   const [redirect, setRedirect] = useState(false);
+  const[isUpdating, setIsUpdating] = useState(false);
 
   return (
     <div className="w-full bg-white rounded-lg p-4 shadow-2xl">
@@ -59,10 +60,14 @@ const EditProfile = ({ user, close }) => {
           />
         </div>
         <div className="mt-4">
-          <button className="h-full w-full px-4 mt-4 py-2 text-white rounded bg-blue-500" onClick={async (e) => {
+          <button className={`h-full w-full px-4 mt-4 py-2 text-white rounded ${isUpdating ? "bg-gray-400 cursor-not-allowed": "bg-blue-500"}`} onClick={async (e) => {
             e.preventDefault();
+            setIsUpdating(true);
             const response = await handleProfileUpdate(bio, name, username);
-            setRedirect(response.success);
+            if(response.success){
+              setIsUpdating(false);
+              setRedirect(true);
+            }
           }}>
             Save
           </button>
