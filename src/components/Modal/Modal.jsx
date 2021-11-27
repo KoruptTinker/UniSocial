@@ -5,14 +5,14 @@ import UserContext from "../../context/UserContext";
 import Avatar from "../Avatar/Avatar";
 import FollowButton from "../FollowButton/FollowButton";
 
-const Modal = ({ users, close, loading , isFollower }) => {
+const Modal = ({ profileUser , users, close, loading , isFollower }) => {
   const { user } = useContext(UserContext);
 
   return (
     <div className="bg-white rounded-lg p-4 shadow-2xl">
       <div className="flex flex-row py-2">
         <p className="font-poppins font-semibold inline">
-          {isFollower ? `${user.name} is followed by` : `${user.name} follows`}
+          {isFollower ? `${profileUser.name} is followed by` : `${profileUser.name} follows`}
         </p>
         <div className="mr-0 ml-auto cursor-pointer">
           <p className="text-xl" onClick={close}>
@@ -36,7 +36,7 @@ const Modal = ({ users, close, loading , isFollower }) => {
               </div>
               <div>
                 <Link href={`/${localUser.username}`}>
-                  <p className="cursor-pointer font-poppins font-medium py-2 hover:underline">
+                  <p className="cursor-pointer font-poppins font-medium py-2 hover:underline" onClick={close}>
                     {localUser.name}
                   </p>
                 </Link>
