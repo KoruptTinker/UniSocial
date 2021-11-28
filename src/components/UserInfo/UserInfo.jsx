@@ -93,6 +93,7 @@ const UserInfo = ({ fetchedUser }) => {
             transform: "translate(-50%, 20%)",
           }}>
           <Modal
+            profileUser={fetchedUser}
             users={isFollowerClick ? followers : followings}
             close={() => setIsModalOpen(false)}
             loading={isModalLoading}
